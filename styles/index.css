@@ -1,4 +1,4 @@
-/* :root{
+:root{
     --item-color: rgb(194, 255, 199);
     --active-element: rgb(38, 54, 39);
     --header-bg: rgb(98, 130, 93);
@@ -8,9 +8,9 @@
     --main-bg-color: rgb(82, 110, 72);
     --second-bg-color: rgb(55, 78, 51);
     --third-bg-color: rgb(63, 91, 65);
-} */
+}
 
-:root{
+/* :root{
     --item-color: rgb( 255,194, 199);
     --active-element: rgb( 54,38, 39);
     --header-bg: rgb( 130,98, 93);
@@ -20,7 +20,7 @@
     --main-bg-color: rgb( 110,82, 72);
     --second-bg-color: rgb( 78,55, 51);
     --third-bg-color: rgb( 91,63, 65);
-}
+} */
 
 *{
     margin: 0;
