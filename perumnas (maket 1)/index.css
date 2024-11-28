@@ -1,0 +1,21 @@
+*{
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.hero-section{
+    background-image: url("images/04dd7b69d1bf2f9a693912a5834beca5.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+}
+
+.features-section{
+    width: 100%;
+    aspect-ratio: 1/0.3444;
+
+    
+}
