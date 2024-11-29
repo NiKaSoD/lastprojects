@@ -1,3 +1,8 @@
+:root {
+    --font-family: "Inter Display", sans-serif;
+    --second-family: "Inter", sans-serif;
+  }
+
 *{
     padding: 0;
     margin: 0;
@@ -21,10 +26,132 @@
         rgba(83, 131, 169, 0.39)55%,
         rgba(92, 138, 176, 0)100%);
         width: 100%;
-        aspect-ratio: 1/0.9;
+        
+        aspect-ratio: 1/0.355555;
         position: absolute;
+
+        z-index: 10;
     }
 
+    .navbar{
+        width: 100%;
+        aspect-ratio: 1/0.056;
+        position: relative;
+        z-index: 20;
+
+        padding: 40px 20px;
+        box-sizing: border-box;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+
+        .button-menu{
+            width: 172px;
+            height: 41px;
+
+            button{
+                border-radius: 25px;
+                padding: 8px 18px;
+                width: 105px;
+                height: 36px;
+
+                background: #fff;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+
+                .menu-text {
+                    font-family: var(--font-family);
+                    font-weight: 500;
+                    font-size: 16px;
+                    line-height: 100%;
+                    color: #12161d;
+                  }
+            }
+        }
+
+        img{
+            width: 120px;
+            height: 28px;
+        }
+
+        .href{
+            width: 172px;
+            height: 16px;
+
+            display: flex;
+            justify-content: space-between;
+
+            a{
+                text-decoration: none;
+                font-family: var(--font-family);
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 100%;
+                color: #fff;
+            }
+        }
+    }
+
+    .title{
+        width: 100%;
+        aspect-ratio: 1/0.25694444;
+
+        position: relative;
+        z-index: 30;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        .content{
+            width: 43vw;
+            aspect-ratio: 1/0.3365;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+
+            h1{
+                font-family: var(--font-family);
+                font-weight: 500px;
+                font-size: 5vw;
+                line-height: 111%;
+                letter-spacing: -0.03em;
+                text-align: center;
+                color: #fff;
+            }
+
+            h4{
+                font-family: var(--font-family);
+                font-weight: 400px;
+                font-size: 1.25vw;
+                line-height: 144%;
+                text-align: center;
+                color: #fff;
+            }
+        }
+    }
+
+    .white-overlay{
+        background: linear-gradient(180deg, 
+        rgba(255, 255, 255, 0) 0%, 
+        rgba(255, 255, 255, 0.37) 19.94%, 
+        rgba(255, 255, 255, 0.78) 39.06%, 
+        rgba(255, 255, 255, 0.94) 65.28%, 
+        #fff 88.54%);
+        width: 100%;
+        
+        aspect-ratio: 1/0.16666;
+        position: absolute;
+        bottom: 0;
+        z-index: 10;
+    }
 }
 
 .features-section{
