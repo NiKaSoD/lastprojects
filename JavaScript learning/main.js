@@ -9,7 +9,7 @@ let name = "Дима";
 let age = 21;
 let isStudent = true;
 
-console.log(`Привет, меня зовут ${name}, мне ${age} лет. Студент: ${isStudent}`);
+console.log(`Привет, меня зовут ${name}, мне ${age} год. Студент: ${isStudent}`);
 
 
 // Создайте две переменные a и b с числами, выполните с ними арифметические операции (+, -, *, /) и выведите результаты в консоль.
@@ -25,7 +25,7 @@ console.log("Деление ", a/b);
 //Создайте массив из 5 чисел. Выведите в консоль первый, последний и длину массива.
 console.log("Next task: date about array");
 
-let array1 = [
+var array1 = [
     3, 10, 11, 25, "end",
 ];
 
@@ -74,4 +74,4 @@ let user = {
     isStudentU: true
 }
 
-console.log("Object user: ", user)
+console.log("Object user:   ", user)
