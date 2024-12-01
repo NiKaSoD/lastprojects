@@ -58,4 +58,20 @@ console.log("method foreach")
 array1.forEach((element)=>console.log(element));
 
 
-console.log("Next task: date about array");
+// Создание объекта
+// Создайте объект user с полями: name, age, isStudent. Выведите значение поля name в консоль.
+
+// Добавление и удаление свойств
+// Добавьте объекту user поле hobby и присвойте ему значение, затем удалите поле isStudent.
+
+// Вложенные объекты
+// Создайте объект post, который содержит поля: title (строка), content (строка) и author (объект с полями name и age).
+console.log("Next task: objects");
+
+let user = {
+    nameU: "Dima",
+    ageU: 21,
+    isStudentU: true
+}
+
+console.log("Object user: ", user)
