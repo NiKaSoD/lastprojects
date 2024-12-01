@@ -1,6 +1,6 @@
 :root{
     --bg-main-color: rgb(58, 58, 170);
-    --bg-second-color: rgb(44, 44, 137);
+    --bg-second-color: rgb(44, 137, 58);
     --font-main-color: rgb(255, 251, 0);
 }
 
@@ -19,6 +19,8 @@
     height: 100vh;
     width: 100%;
 
+    background-color: var(--bg-main-color);
+    animation: changeColor 4s ease infinite;
 }
 
  .form1{
@@ -29,5 +31,22 @@
     vertical-align: middle;
     line-height: 20vh;
 
-    color: var(--font-main-color);
+    background-color: white;
+
+    animation: 2s ease infinite scrolling;
+}
+
+@keyframes scrolling{
+    100%{
+        transform: rotate(90deg);
+    }
+}
+
+@keyframes changeColor {
+    0%, 100% {
+        background-color: var(--bg-main-color);
+    }
+    50%{
+        background-color: var(--bg-second-color);
+    }
 }
