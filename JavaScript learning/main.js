@@ -68,10 +68,11 @@ array1.forEach((element)=>console.log(element));
 // Создайте объект post, который содержит поля: title (строка), content (строка) и author (объект с полями name и age).
 console.log("Next task: objects");
 
-let user = {
+const user = {
     nameU: "Dima",
     ageU: 21,
     isStudentU: true
 }
 
-console.log("Object user:   ", user)
+console.log("User name:   ", user.nameU)
+
