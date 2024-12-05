@@ -1,7 +1,11 @@
 :root{
     --bg-main-color: rgb(58, 58, 170);
     --bg-second-color: rgb(44, 137, 58);
-    --font-main-color: rgb(255, 251, 0);
+
+    --bs-modal-window-true: rgba(23, 255, 11, 0.56);
+    --bs-modal-window-false: rgba(23, 11, 255, 0.56);
+
+    --bg-window-default: white;
 }
 
 *{
@@ -10,35 +14,107 @@
     padding: 0;
 }
 
-.main{
-    display: flex;
-    justify-content: center;
-    justify-items: center;
-    align-items: center;
 
+
+.main{
     height: 100vh;
     width: 100%;
-
+    
     background-color: var(--bg-main-color);
     animation: changeColor 4s ease infinite;
+
+    .modalWindow{
+        width: 20vh;
+        height: 20vh;
+    
+        background-color: var(--bg-window-default);
+        border: none;
+        margin: -10vh 0 0 -10vh;
+        top: 50%;
+        left: 15%;
+        
+        
+        animation: 8s linear infinite scrolling;
+        border-radius: 10vh;
+        z-index: 100;
+    
+        .modalSector{
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+        }
+    }
+    
+    .form1{
+        height: 20vh;
+        width: 20vh;
+        background-color: var(--bg-main-color);
+        text-align: center;
+        vertical-align: middle;
+        line-height: 20vh;
+    
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -10vh 0 0 -10vh;
+    
+        background-color: white;
+    
+        animation: 8s ease infinite scrolling;
+    }
+
+    .anecdoteWindow{
+        width: 20vh;
+        height: 20vh;
+
+
+        position: absolute;
+        top: 50%;
+        left: 85%;
+        margin: -10vh 0 0 -10vh;
+        padding: 4px;
+
+        background-color: var(--bg-window-default);
+        
+        
+        p{
+            position: absolute;
+            font-size: 20px;
+            text-align: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    .anecdoteWindow:empty{
+        display: none;
+    }
+
+
+    .form{
+        background-color: rgba(255, 255, 255, 0.5);
+        margin-bottom: 5px;
+        padding: 3px;
+    }
 }
 
- .form1{
-    height: 20vh;
-    width: 20vh;
-    background-color: var(--bg-main-color);
-    text-align: center;
-    vertical-align: middle;
-    line-height: 20vh;
-
-    background-color: white;
-
-    animation: 2s ease infinite scrolling;
-}
+ 
 
 @keyframes scrolling{
-    100%{
+    25%{
         transform: rotate(90deg);
+    }
+    50%{
+        transform: rotate(180deg);
+    }
+    75%{
+        transform: rotate(270deg);
+    }
+    100%{
+        transform: rotate(360deg);
     }
 }
 

@@ -7,10 +7,45 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
+    
+
     <div class="main">
-        <div class="form1">
-            <script src="main.js" defer></script>
+        <dialog class="modalWindow">
+            <div class="modalSector">
+                <p id="modalValue"></p>
+                <form method="dialog">
+                    <button>OK</button>
+                </form>
+            </div>
+        </dialog>
+
+        <div class="form1"></div>
+        
+        <div class="anecdoteWindow"></div>        
+        
+        
+        
+        <div class="form">
+            <input type="range" min="0" max="100" value="50" id="myRange">
+            <p>Value opacity: <span id="valueSlider"></span></p>
         </div>
+
+        <div class="form">
+            <p>Task: <span id="firstValueTest"></span>+<span id="secondValueTest"></span></p>
+            <label> Answer:</label><input type="text" id="testAnswer" >
+            <input type="button" value="Check" onclick="checkResult()">
+            <input type="button" value="Renew" onclick="generateTask()">
+
+        </div>
+
+        <div class="anecdote form">
+            <input type="button" value="Show anecdote" id="anecdoteButoon" onclick="showAnecdote()">
+            <input type="button" value="Hide anecdote" id="anecdoteButoon" onclick="hideAnecdote()">
+
+        </div>
+
     </div>
+    
+    <script src="interactive.js" defer></script>
 </body>
 </html>
