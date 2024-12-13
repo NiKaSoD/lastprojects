@@ -53,13 +53,20 @@ function checkElement(element, text){
     alert(`we need ${text} in formConfig`);
     return false;
   }
-  else{
-    return true;
-  }
+  
+  return true;
 }
 
 function testAlert(){
   alert("test");
+}
+
+const setAttributes = (elem, config, reservedKeys = []) => {
+  Object.entries(config).forEach(([key, value]) => {
+    if(!reservedKeys.includes(key)){
+      elem.setAttribute(key, value);
+    }
+  });
 }
 
 function render(){
@@ -75,10 +82,10 @@ function render(){
   //create new elements
   formConfig.fields.forEach((field, idx) => {
     if(!checkElement(field.input, `input for ${idx+1} element`)){
-      return false;
+      return;
     }
     if(!checkElement(field.label, `label for ${idx+1} element`)){
-      return false;
+      return;
     }
 
     //create and set div attributes

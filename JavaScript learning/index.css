@@ -1,9 +1,31 @@
+:root {
+    --main-bg: #303030;
+    --dark-bg: #151515;
+}
+
 *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-.red-bg{
-    background-color: red;
+body {
+    min-width: 100vw;
+    min-height: 100vh;
+    
+    padding: 2rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--dark-bg);
+}
+
+form.by-builder {
+    padding: 0.5rem;
+
+    background-color: var(--main-bg);
+
+    font-size: 2rem;
 }
