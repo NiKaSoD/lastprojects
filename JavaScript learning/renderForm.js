@@ -1,52 +1,7 @@
-const formConfig = {
-  title: "Login form",
-  fields: [
-    {
-      class: "red-bg",
-      idFor: "username",
-      label: {
-        textContent: "Username: ",
-      },
-      input: {
-        name: "username",
-        type: "text",
-        required: true,
-        placeholder: "hi",
-      },
-    },
-    {
-      idFor: "password",
-      label: {
-        textContent: "Password: ",
-      },
-      input: {
-        name: "password",
-        type: "password",
-        required: true,
-        value: 12123,
-      }
-    },
-    {
-      idFor: "email",
-      label: {
-        textContent: "Email: ",
-      },
-      input: {
-        name: "email",
-        type: "email",
-        required: true,
-      }
-    },
-    {
-      label: {},
-      input: {
-        value: "Get test alert",
-        type: "button",
-        onclick: "testAlert()",
-      }
-    },
-  ]
-}
+const formConfig = document.querySelector("#custom-config");
+const parsedConfig = JSON.parse(formConfig.value);
+
+
 
 function checkElement(element, text){
   if(!element){
@@ -73,14 +28,14 @@ function render(){
   const ourForm = document.createElement("form");
   
   //title set text
-  if(checkElement(formConfig.title, "title")){
+  if(checkElement(parsedConfig.title, "title")){
     const title = document.createElement("h3");
-    title.textContent=formConfig.title
+    title.textContent=parsedConfig.title
     ourForm.appendChild(title);
   }
   
   //create new elements
-  formConfig.fields.forEach((field, idx) => {
+  parsedConfig.fields.forEach((field, idx) => {
     if(!checkElement(field.input, `input for ${idx+1} element`)){
       return;
     }
