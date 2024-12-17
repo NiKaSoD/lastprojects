@@ -1,39 +1,95 @@
-/* :root {
-    --main-bg: #303030;
-    --dark-bg: #151515;
-} */
+:root {
+    --header-bg: #236473;
+    --main-bg: #3b92a3;
+    
+    --form-editor-bg: #a1c4d4;
+    --error-font-color: red;
+
+    --div-result-bg: #57a5b5;
+    
+    --dark: #344a4e;
+}
 
 *{
     box-sizing: border-box;
     padding: 0;
-    margin: 5px;
+    margin: 0;
+    font-family: 'Franklin Gothic Medium';
 }
 
-/* body {
-    min-width: 100vw;
-    min-height: 100vh;
-    
-    padding: 2rem;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background-color: var(--dark-bg);
+header{
+    position: relative;
+    font-size: 3vw;
+    text-align: center;
+    padding: 1vw;
+    background-color: var(--header-bg);
+    height: 5vw;
 }
 
-form.by-builder {
-    padding: 0.5rem;
-
+body{
     background-color: var(--main-bg);
+    height: 100%;
+}
 
-    font-size: 2rem;
-} */
+.form-design{
+    position: fixed;
+    width: 50vw;
+    height: calc(100vh - 5vw);
+    /* background-color: var(--dark); */
 
-textarea {
-    width: 40%;
-    height: 60vh;
-    margin-bottom: 20px;
-    font-family: monospace;
+    #hint-form{
+        margin: 10px;
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    #custom-config {
+        width: calc(100% - 20px);
+        height: 80%;
+        margin: 10px;
+        margin-top: 0;
+        font-family: monospace;
     
+
+        background-color: var(--form-editor-bg);
+        border-color: var(--dark);
+
+        outline: none;
+        resize: none;
+    }
+
+    #error-message{
+        margin: 10px;
+        text-align: center;
+        background-color: var(--dark);
+        color: var(--error-font-color);
+        font-size: 1.2rem;
+
+    }
+}
+
+.result{
+    height: calc(100vh - 5vw);
+    width: 50vw;
+    
+    padding: 5px;
+
+    position: relative;
+    left: 50vw;
+    overflow-y: scroll;
+
+    background-color: var(--div-result-bg);
+
+    .divElement{
+        font-size: 1.2rem;
+        margin: 5px;
+        /* background-color: var(-); */
+        width: auto;
+
+        input{
+            width: 300px;
+            height: 24px;
+        }
+    }
 }

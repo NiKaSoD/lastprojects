@@ -8,17 +8,19 @@
 </head>
 <body>
     
-    <h1>Render Form</h1>
-    <p>Input object config to textarea</p>
+    <header>Render Form</header>
+    
+    <div class="form-design">
+        <p id="hint-form">Input object config to textarea in JSON format</p>
 
-    <textarea id="custom-config">
+        <textarea id="custom-config">
 {
     "title": "Login Form",
     "fields": [
         {
         "idFor": "username",
         "label": {
-            "textContent": "Username:"
+            "textContent": "Username: "
         },
         "input": {
             "name": "username",
@@ -30,23 +32,23 @@
         {
         "idFor": "password",
         "label": {
-            "textContent": "Password:"
+            "textContent": "Password: "
         },
         "input": {
             "name": "password",
             "type": "password",
             "required": true
         }
-        }   
+        }
     ]
-}
-    </textarea>
+}</textarea>
 
-    <button id="render-button">Render form</button>
-
-    <p id="error-message"></p>
-
-
+        <p id="error-message"></p>
+    </div>
+    
+    <div class="result">
+        
+    </div>
 
     <script src="renderForm.js" defer></script>
 </body>

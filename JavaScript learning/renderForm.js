@@ -1,6 +1,5 @@
 const formConfig = document.querySelector("#custom-config");
-const parsedConfig = JSON.parse(formConfig.value);
-
+const ourForm = document.querySelector(".result");
 
 
 function checkElement(element, text){
@@ -12,25 +11,14 @@ function checkElement(element, text){
   return true;
 }
 
-function testAlert(){
-  alert("test");
-}
+function render(parsedConfig){
 
-const setAttributes = (elem, config, reservedKeys = []) => {
-  Object.entries(config).forEach(([key, value]) => {
-    if(!reservedKeys.includes(key)){
-      elem.setAttribute(key, value);
-    }
-  });
-}
-
-function render(){
-  const ourForm = document.createElement("form");
+  ourForm.innerHTML="";
   
   //title set text
   if(checkElement(parsedConfig.title, "title")){
-    const title = document.createElement("h3");
-    title.textContent=parsedConfig.title
+    const title = document.createElement("h2");
+    title.innerHTML=parsedConfig.title;
     ourForm.appendChild(title);
   }
   
@@ -50,7 +38,7 @@ function render(){
         divElement.setAttribute(key, value);
       }
     });
-
+    divElement.classList.add("divElement")
     //create and set label attributes
     const labelElement = document.createElement("label");
     Object.entries(field.label).forEach(([key, value]) => {
@@ -81,7 +69,18 @@ function render(){
     ourForm.appendChild(divElement);
   });
 
-  document.body.appendChild(ourForm);  
 }
 
-render();
+function ConfigChange() {
+  try {
+    const newConfig = JSON.parse(formConfig.value);
+    render(newConfig);
+    document.querySelector("#error-message").innerHTML = "";
+  } catch (error) {
+    document.querySelector("#error-message").innerHTML = "Invalid JSON format";
+  }
+}
+
+formConfig.addEventListener("input", ConfigChange);
+
+ConfigChange( )
