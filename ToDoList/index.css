@@ -1,5 +1,5 @@
 :root{
-
+    --bg-main: #428150;
 }
 
 *{
@@ -8,3 +8,16 @@
     box-sizing: border-box;
     font-style: 'Franklin Gothic Medium';
 }
+
+body{
+    background-image: url("images/timofey.jpg");
+
+    /* backdrop-filter: blur(8px); */
+
+    height: 100vh;
+  
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
