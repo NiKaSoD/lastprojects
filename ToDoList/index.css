@@ -12,12 +12,46 @@
 body{
     background-image: url("images/timofey.jpg");
 
-    /* backdrop-filter: blur(8px); */
+    backdrop-filter: blur(7px);
 
     height: 100vh;
   
     background-position: left;
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
 }
 
+div{
+    margin: 5px 0;
+    padding: 1vw;
+}
+
+.bg-white{
+    background-color: white;
+    opacity: 50%;
+}
+
+header{
+    font-size: 8vh;
+    text-align: center;
+    text-shadow: rgb(255, 255, 255) 2px 0 10px;
+}
+
+
+/* DOM-tree format*/
+.new-task{
+    width: 100vw;
+    height: 10vh;
+
+    display: flex;
+    gap: 1vw;
+
+    #add-task-input{
+        flex-grow: 7;
+    }
+
+    #add-task-button{
+        flex-grow: 3;
+    }
+}
