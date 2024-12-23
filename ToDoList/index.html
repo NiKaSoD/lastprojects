@@ -11,26 +11,40 @@
     <header><p>Список завдань</p></header>
 
     <div class="new-task bg-white">
-        <input type="text" placeholder="input task" id="add-task-input">
-        <input type="button" value="Add new" id="add-task-button">
+        <input type="text" placeholder="Введіть нову задачу" id="add-task-input">
+        <input type="button" value="Додати нову задачу" id="add-task-button">
     </div>
 
-    <div class="filter-task bg-white">
-        <input type="radio" name="filter" id="filter-all">
-        <input type="radio" name="filter" id="filter-do">
-        <input type="radio" name="filter" id="filter-done">
-    </div>
+    <form class="filter-task-form bg-white">
+        <label for="filter-all">
+            <input type="radio" name="filter" id="filter-all" value="all" checked>
+            <div class="filter-value">Усі</div>
+        </label>
+
+        <label for="filter-do">
+            <input type="radio" name="filter" id="filter-do" value="do">
+            <div class="filter-value">Зробити</div>
+        </label>
+        
+
+        <label for="filter-done">
+            <input type="radio" name="filter" id="filter-done" value="done">
+            <div class="filter-value">Зроблено</div>
+        </label>
+
+    </form>
+        
 
     <div class="task bg-white">
         <p>some task to do</p>
     </div>
 
-    <footer>
-        <div id="created" class="bg-white">
+    <footer class="bg-white">
+        <div id="created" class="">
             <p>Created by NiKaSoD</p>
         </div>
 
-        <div class="social bg-white">
+        <div class="social">
             <a href="https://discordapp.com/users/715952660263600169" class="fa-brands fa-discord" target="_blank"></a>
             <a href="https://t.me/NiKaSoD" class="fa-brands fa-telegram" target="_blank"></a>
         </div>

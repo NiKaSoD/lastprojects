@@ -1,57 +1,105 @@
 :root{
-    --bg-main: #428150;
+  --bg-main: #428150;
 }
 
 *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-style: 'Franklin Gothic Medium';
+  margin: 0;
+  padding: 0;
+  
+  font-style: 'Franklin Gothic Medium';
 }
 
 body{
-    background-image: url("images/timofey.jpg");
+  background-image: url("images/timofey.jpg");
 
-    backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
 
-    height: 100vh;
-  
-    background-position: left;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
+  min-height: 100vh;
+
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 div{
-    margin: 5px 0;
-    padding: 1vw;
+  margin: 5px 0;
+  padding: 6px;
+  box-sizing: border-box;
 }
 
 .bg-white{
-    background-color: white;
-    opacity: 50%;
+  background-color: white;
+  opacity: 50%;
 }
 
-header{
-    font-size: 8vh;
-    text-align: center;
-    text-shadow: rgb(255, 255, 255) 2px 0 10px;
+input[type="radio"] {
+  position: absolute;
+  opacity: 0;
 }
+
+input + div {
+  cursor: pointer;
+}
+
 
 
 /* DOM-tree format*/
+  
+header{
+  font-size: 3.3rem;
+  text-align: center;
+  text-shadow: rgb(255, 255, 255) 2px 0 10px;
+}
+
+
 .new-task{
-    width: 100vw;
-    height: 10vh;
+  height: 60px;
 
-    display: flex;
-    gap: 1vw;
+  display: flex;
+  gap: 1vw;
 
-    #add-task-input{
-        flex-grow: 7;
-    }
+  #add-task-input{
+      flex-grow: 7;
 
-    #add-task-button{
-        flex-grow: 3;
-    }
+      font-size: 1.5rem;
+  }
+
+  #add-task-button{
+      flex-grow: 3;
+      font-size: 1.5rem;
+  }
+}
+
+.filter-task-form{
+
+  display: flex;
+  gap: 1vw;
+  
+  flex-direction: row;
+
+  justify-content: center;
+
+  .filter-value{
+    font-size: 1.5rem;
+  }
+}
+
+
+footer{
+  display: flex;
+
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  justify-content: space-around;
+}
+
+
+
+/* input[id="filter-all"]:hover + div, */
+input:checked + div.filter-value,
+input:focus + div.filter-value {
+  background-color: #428150;
 }
