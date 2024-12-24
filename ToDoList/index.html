@@ -10,17 +10,12 @@
 <body>
     <header><p>Список завдань</p></header>
 
-    <div class="new-task bg-white">
-        <input type="text" placeholder="Введіть нову задачу" id="add-task-input">
+    <div class="new-task bg-color">
+        <input type="text" placeholder="Введіть нову задачу" id="add-task-input" required autocomplete="off">
         <input type="button" value="Додати нову задачу" id="add-task-button">
     </div>
 
-    <form class="filter-task-form bg-white">
-        <label for="filter-all">
-            <input type="radio" name="filter" id="filter-all" value="all" checked>
-            <div class="filter-value">Усі</div>
-        </label>
-
+    <form class="filter-task-form bg-color">
         <label for="filter-do">
             <input type="radio" name="filter" id="filter-do" value="do">
             <div class="filter-value">Зробити</div>
@@ -32,14 +27,50 @@
             <div class="filter-value">Зроблено</div>
         </label>
 
+        <label for="filter-all">
+            <input type="radio" name="filter" id="filter-all" value="all" checked>
+            <div class="filter-value">Усі</div>
+        </label>
     </form>
         
+    <ol class="task bg-color">
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color done">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color done">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color done">some task to do</li>
+        <li class="bg-color done">some task to do</li>
+        <li class="bg-color done">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
+        <li class="bg-color">some task to do</li>
 
-    <div class="task bg-white">
-        <p>some task to do</p>
-    </div>
-
-    <footer class="bg-white">
+    </ol>
+    
+    <footer class="bg-color">
         <div id="created" class="">
             <p>Created by NiKaSoD</p>
         </div>
