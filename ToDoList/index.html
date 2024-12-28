@@ -10,10 +10,11 @@
 <body>
     <header><p>Список завдань</p></header>
 
-    <div class="new-task bg-color">
-        <input type="text" placeholder="Введіть нову задачу" id="add-task-input" required autocomplete="off">
+
+    <form class="new-task bg-color" id="new-task-form">
+        <input type="text" placeholder="Введіть нову задачу" id="add-task-input" name="task-name" required autocomplete="off">
         <input type="button" value="Додати нову задачу" id="add-task-button">
-    </div>
+    </form>
 
     <form class="filter-task-form bg-color">
         <label for="filter-do">
@@ -28,45 +29,12 @@
         </label>
 
         <label for="filter-all">
-            <input type="radio" name="filter" id="filter-all" value="all" checked>
+            <input type="radio" name="filter" id="filter-all" value="all" >
             <div class="filter-value">Усі</div>
         </label>
     </form>
         
     <ol class="task bg-color">
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color done">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color done">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color done">some task to do</li>
-        <li class="bg-color done">some task to do</li>
-        <li class="bg-color done">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
-        <li class="bg-color">some task to do</li>
 
     </ol>
     

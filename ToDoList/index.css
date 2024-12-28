@@ -10,12 +10,12 @@
 *{
   margin: 0;
   padding: 0;
-  
+  box-sizing: border-box;
   font-style: 'Franklin Gothic Medium';
 }
 
 body{
-  background: var(--bg-image);
+  background: var(--bg-dark);
   backdrop-filter: blur(7px);
 
   min-height: 100vh;
@@ -29,7 +29,7 @@ body{
 div, ol, li{
   margin: 5px 0;
   padding: 6px;
-  box-sizing: border-box;
+  
 }
 
 
@@ -64,14 +64,18 @@ input:hover + div.filter-value {
 header{
   height: 60px;
 
+
+  color: var(--bg-color-main);
   font-size: 3.3rem;
   text-align: center;
-  text-shadow: rgb(255, 255, 255) 2px 0 10px;
+  /* text-shadow: rgb(255, 255, 255) 2px 0 10px; */
 }
 
 
 .new-task{
   height: 60px;
+  padding: 6px;
+  margin: 5px 0;
 
   display: flex;
   gap: 15px;
@@ -118,8 +122,11 @@ header{
     list-style-position: inside;
     font-size: var(--font-size-text);
   }
-  li:first-child, li:last-child{
-    margin: 0;
+  li:first-child{
+    margin-top: 0;
+  }
+  li:last-child{
+    margin-bottom: 0;
   }
 }
 
