@@ -1,6 +1,6 @@
 const formCreateTask = document.querySelector("#new-task-form")
 const buttonCreateTask = document.querySelector("#add-task-button")
-const taskList = document.querySelector(".task")
+const taskList = document.querySelector(".tasks")
 const taskListElement = ((task) => {
     const li = document.createElement("li")
     li.classList.add("bg-color")
@@ -30,9 +30,34 @@ function getData(key, defaultValue = null){
     return JSON.parse(dataValue)
 }
 
+function getLastId(){
+    const lastId  = getData("lastTaskId", 0) + 1
+    setData("lastTaskId", lastId)
+    return lastId
+}
+
 const tasks = getData("tasks", [])
 
 let filter = getData("filter", null)
+
+class Task{
+    id
+    text
+    status
+    created
+    constructor(lastId = null, text = "", status = "do", date = Date()){
+        this.id = lastId,
+        this.text = text, 
+        this.status = status,
+        this.created = date
+    }
+
+    addTask(){
+        tasks.push(this)
+        setData("tasks", tasks)
+        renderForm()
+    }
+}
 
 function renderForm() {
     taskList.innerHTML = ""
@@ -64,12 +89,6 @@ function renderFilter(){
     }
 }
 
-function addTask(task){
-    tasks.push(task)
-    setData("tasks", tasks)
-    renderForm()
-}
-
 buttonCreateTask.addEventListener("click", () =>{
     const text = (new FormData(formCreateTask)).get("task-name")
 
@@ -77,18 +96,9 @@ buttonCreateTask.addEventListener("click", () =>{
         return
     }
 
-    const lastId = getData("lastTaskId", 0) + 1
-    setData("lastTaskId", lastId)
+    const task = new Task(getLastId(), text)    
+    task.addTask()
 
-    const task = {
-        id: lastId,
-        text: text,
-        status: "do",
-        created: Date()
-    }
-    
-    addTask(task)
-   
     document.querySelector("#add-task-input").value = ""
 })
 
@@ -99,14 +109,29 @@ formFilter.addEventListener("change", (event) => {
     renderForm()
 });
 
+const showModal = (...content) => {
+    const contentBlock = document.createElement("div")
+    contentBlock.classList.add("modal-content")
+    contentBlock.addEventListener("click", (e) => {
+        e.stopPropagation()
+    })
+    contentBlock.append(...content)
 
-console.log(tasksf.id)
+    const container = document.createElement("div")
+    container.classList.add("modal-container")
+    container.append(contentBlock)
+
+    const hideModal = () => {
+        container.parentElement.removeChild(container)
+    }
+
+    container.addEventListener("click", hideModal)
+
+    document.body.append(container)
+
+    return hideModal;
+}
+
 
 renderFilter()
 renderForm()
-
-
-
-
-// setData("filter", null)
-
