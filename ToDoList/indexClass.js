@@ -6,11 +6,11 @@ const taskListElement = ((task) => {
     li.classList.add("bg-color")
     li.innerHTML= `${task.text}`
     
-    
+    li.id = "task-" + task.id
+    li.classList.add("task")
     if(task.status == "done"){
         li.classList.add("done")
     }
-
     return li
 })
 const formFilter = document.querySelector(".filter-task-form")
@@ -57,6 +57,8 @@ class Task{
         setData("tasks", tasks)
         renderForm()
     }
+
+    //просмотреть как сделать редактирование таска и его удаление
 }
 
 function renderForm() {
@@ -72,7 +74,7 @@ function renderForm() {
     }else{
         filteredTasks = tasks
     }
-    
+
     filteredTasks.forEach((task) => taskList.append(taskListElement(task)))
 }
 
@@ -109,6 +111,15 @@ formFilter.addEventListener("change", (event) => {
     renderForm()
 });
 
+taskList.addEventListener("click", (event) => {
+    const taskElement = event.target.closest(".task")
+    if(!taskElement) {
+        return
+    }
+
+    showModal(taskElement)
+})
+
 const showModal = (...content) => {
     const contentBlock = document.createElement("div")
     contentBlock.classList.add("modal-content")
@@ -129,7 +140,7 @@ const showModal = (...content) => {
 
     document.body.append(container)
 
-    return hideModal;
+    return hideModal
 }
 
 

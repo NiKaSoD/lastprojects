@@ -1,6 +1,6 @@
 const formCreateTask = document.querySelector("#new-task-form")
 const buttonCreateTask = document.querySelector("#add-task-button")
-const taskList = document.querySelector(".task")
+const taskList = document.querySelector(".tasks")
 const taskListElement = ((task) => {
     const li = document.createElement("li")
     li.classList.add("bg-color")
@@ -100,7 +100,6 @@ formFilter.addEventListener("change", (event) => {
 });
 
 
-console.log(tasksf.id)
 
 renderFilter()
 renderForm()
