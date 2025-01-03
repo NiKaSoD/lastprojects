@@ -12,8 +12,9 @@
 
 
     <form class="new-task bg-color" id="new-task-form">
-        <input type="text" placeholder="Введіть нову задачу" id="add-task-input" name="task-name" required autocomplete="off">
-        <input type="button" value="Додати нову задачу" id="add-task-button">
+        <!-- <input type="text" placeholder="Введіть нову задачу" id="add-task-input" name="task-name" required autocomplete="off"> -->
+        <!-- remove this element to place with categories.... -->
+        <input type="button" value="Додати нову задачу" id="add-task-button"> 
     </form>
 
     <form class="filter-task-form bg-color">
@@ -49,12 +50,37 @@
         </div>
     </footer>
 
-    <div class="modal-container">
+    <!-- <div class="modal-container">
 
         <div class="modal-content">
-            <!-- создать прототип окна для просмотра таска, создать прототип окна при добавлении таска + цсс для кнопок -->
+            <form class="modal-create-form">
+                <div>
+                    <p>Назва задачі</p>
+                    <input type="text" placeholder="Введіть назву задачі" id="add-task-input" name="task-name" required autocomplete="off">
+                </div>
+                <div>
+                    <p>Опис задачі</p>
+                    <textarea name="task-description" placeholder="Введіть опис задачі" id="add-task-textarea" required autocomplete="off"></textarea>
+                </div>
+
+                <div>
+                    <p>Пріоритет задачі</p>
+                    <select name="task-priority" id="add-task-select" required >
+                        <option value="3">Високий пріоритет</option>
+                        <option value="2" selected>Середній пріоритет</option>
+                        <option value="1">Низький пріоритет</option>
+                    </select>
+                </div>
+                <div>
+                    <p>Термін виконання:</p>
+                    <input type="datetime-local" id="task-datetime">
+                </div>
+                <div>
+                    <input type="button" value="Додати нову задачу" id="add-task-button">
+                </div>
+            </form>
         </div>
-    </div>
+    </div> -->
 
 
     

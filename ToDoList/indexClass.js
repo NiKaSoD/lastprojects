@@ -92,16 +92,18 @@ function renderFilter(){
 }
 
 buttonCreateTask.addEventListener("click", () =>{
-    const text = (new FormData(formCreateTask)).get("task-name")
+    // const text = (new FormData(formCreateTask)).get("task-name")
 
-    if(!text){
-        return
-    }
+    // if(!text){
+    //     return
+    // }
 
-    const task = new Task(getLastId(), text)    
-    task.addTask()
+    // const task = new Task(getLastId(), text)    
+    // task.addTask()
 
-    document.querySelector("#add-task-input").value = ""
+
+    showCreateWindow()
+    // document.querySelector("#add-task-input").value = ""
 })
 
 formFilter.addEventListener("change", (event) => {
@@ -119,6 +121,8 @@ taskList.addEventListener("click", (event) => {
 
     showModal(taskElement)
 })
+
+
 
 const showModal = (...content) => {
     const contentBlock = document.createElement("div")
@@ -141,6 +145,88 @@ const showModal = (...content) => {
     document.body.append(container)
 
     return hideModal
+}
+
+const showCreateWindow = (element) => {
+    const mainForm = document.createElement("form")
+    mainForm.classList.add("modal-create-form")
+
+    const nameTaskDiv = document.createElement("div")
+    const nameTaskP = document.createElement("p")
+    nameTaskP.innerHTML = "Назва задачі"
+    const nameTaskInput = document.createElement("input")
+    nameTaskInput.placeholder = "Введіть назву задачі"
+    nameTaskInput.id = "add-task-input"
+    nameTaskInput.name = "task-name"
+    nameTaskInput.autocomplete = "off"
+    nameTaskInput.setAttribute("required", "")
+
+    nameTaskDiv.append(nameTaskP)
+    nameTaskDiv.append(nameTaskInput)
+
+
+    const descriptionTaskDiv = document.createElement("div")
+    const descriptionTaskP = document.createElement("p")
+    descriptionTaskP.innerHTML = "Опис задачі"
+    const descriptionTaskTextarea = document.createElement("textarea")
+    descriptionTaskTextarea.placeholder = "Введіть опис задачі"
+    descriptionTaskTextarea.id = "add-task-textarea"
+    descriptionTaskTextarea.name = "task-description"
+    descriptionTaskTextarea.autocomplete = "off"
+    descriptionTaskTextarea.setAttribute("required", "")
+
+    descriptionTaskDiv.append(descriptionTaskP)
+    descriptionTaskDiv.append(descriptionTaskTextarea)
+
+
+    const priorityTaskDiv = document.createElement("div")
+    const priorityTaskP = document.createElement("p")
+    priorityTaskP.innerHTML = "Пріоритет задачі"
+    const priorityTaskSelect = document.createElement("select")
+    priorityTaskSelect.id = "add-task-select"
+    priorityTaskSelect.name = "task-priority"
+    priorityTaskSelect.setAttribute("required", "")
+
+    let prioritysArray = [{text: "Високий пріоритет", value: 3}, {text: "Середній пріоритет", value: 2}, {text: "Низький пріорітет", value: 1}]
+    prioritysArray.forEach((element) => {
+        const option = document.createElement("option")
+        option.text = element.text
+        option.value = element.value
+        priorityTaskSelect.append(option)
+    })
+    priorityTaskSelect.value = "2"
+    
+    priorityTaskDiv.append(priorityTaskP)
+    priorityTaskDiv.append(priorityTaskSelect)
+
+    
+    const deadlineTaskDiv = document.createElement("div")
+    const deadlineTaskP = document.createElement("p")
+    deadlineTaskP.innerHTML = "Пріоритет задачі"
+    const deadlineTaskInput = document.createElement("input")
+    deadlineTaskInput.type = "datetime-local"
+    deadlineTaskInput.id = "task-datetime"
+    
+    deadlineTaskDiv.append(deadlineTaskP)
+    deadlineTaskDiv.append(deadlineTaskInput)
+
+    
+    const createTaskDiv = document.createElement("div")
+    const createTaskButton = document.createElement("input")
+    createTaskButton.type = "button"
+    createTaskButton.value = "Додати нову задачу"
+    createTaskButton.id = "add-task-button"
+    
+    createTaskDiv.append(createTaskButton)
+
+
+    mainForm.append(nameTaskDiv)
+    mainForm.append(descriptionTaskDiv)
+    mainForm.append(priorityTaskDiv)
+    mainForm.append(deadlineTaskDiv)
+    mainForm.append(createTaskDiv)
+
+    showModal(mainForm)
 }
 
 

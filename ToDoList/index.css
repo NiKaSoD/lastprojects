@@ -4,6 +4,7 @@
   --bg-color-main-f: rgb(255, 255, 255);
   --bg-color-second: #ffffff;
   --font-size-text: 1.5rem;
+  --font-size-hint: 1.2rem;
   --bg-image: url("images/timofey.jpg");
   --bg-dark: rgb(19, 19, 19);
 }
@@ -12,7 +13,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-style: 'Franklin Gothic Medium';
+  font-style: 'Franklin Gothic Medium', 'Lucida Console';
 }
 
 body{
@@ -79,6 +80,40 @@ input:hover + div.filter-value {
   background-color: var(--bg-color-main);
   padding: 0.75rem;
   
+  min-width: 500px;
+  min-height: 400px;
+}
+
+.modal-create-form{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  /* gap: 6px; */
+
+  *{
+    font-size: var(--font-size-text);
+    padding: 6px;
+    outline: none;
+    margin: 0;
+    width: 100%;
+  }
+
+  p{
+    font-size: var(--font-size-hint);
+    padding: 0;
+  }
+  #add-task-textarea{
+    resize: none;
+    
+    height: 180px;
+  }
+
+  #add-task-button{
+    /* padding: 6px 0px;
+    margin: 6px; */
+    box-sizing: padding-box;
+  }
 }
 
 
@@ -93,7 +128,6 @@ header{
   text-align: center;
   /* text-shadow: rgb(255, 255, 255) 2px 0 10px; */
 }
-
 
 .new-task{
   height: 60px;
