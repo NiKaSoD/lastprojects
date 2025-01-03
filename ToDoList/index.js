@@ -37,83 +37,83 @@ HTMLElement.prototype.OnChange = function (callback) {
 
 
 
-// const showModal = (...content) => {
-//     const contentBlock = document.createElement("div")
-//     .AddClass("modal-content")
-//     .AddEventListener("click", (e) => {
-//         e.stopPropagation()
-//     })
-//     .Append(...content)
+// // const showModal = (...content) => {
+// //     const contentBlock = document.createElement("div")
+// //     .AddClass("modal-content")
+// //     .AddEventListener("click", (e) => {
+// //         e.stopPropagation()
+// //     })
+// //     .Append(...content)
 
-//     const container = document.createElement("div")
-//     .AddClass("modal-container")
-//     .Append(contentBlock)
+// //     const container = document.createElement("div")
+// //     .AddClass("modal-container")
+// //     .Append(contentBlock)
 
-//     const hideModal = () => {
-//         container.parentElement.removeChild(container)
-//     }
+// //     const hideModal = () => {
+// //         container.parentElement.removeChild(container)
+// //     }
 
-//     container.AddEventListener("click", hideModal)
+// //     container.AddEventListener("click", hideModal)
 
-//     document.body.append(container)
+// //     document.body.append(container)
 
-//     return hideModal;
+// //     return hideModal;
+// // }
+
+// // // showModal("Hello")
+
+
+
+// const saveData = (key, data) => {
+//     localStorage.setItem(key, JSON.stringify(data))
 // }
 
-// // showModal("Hello")
+// const loadData = (key, defaultValue = null) => {
+//     const storedValue = localStorage.getItem(key);
 
-
-
-const saveData = (key, data) => {
-    localStorage.setItem(key, JSON.stringify(data))
-}
-
-const loadData = (key, defaultValue = null) => {
-    const storedValue = localStorage.getItem(key);
-
-    if(!storedValue){
-        return defaultValue;
-    }
-
-    return JSON.parse(storedValue)
-}
-
-// const tasls = [
-//     {
-//         id: 1,
-//         title: "Task 1",
-//         description: "Do something",
-//         status: "ToDo",
-//         created: Date.now(),
-//         deadline: Date.now()
-//     },
-//     {
-//         id: 2,
-//         title: "Task 2",
-//         description: "Do something",
-//         status: "ToDo",
-//         created: Date.now(),
-//         deadline: Date.now()
-//     },
-//     {
-//         id: 3,
-//         title: "Task 3",
-//         description: "Do something",
-//         status: "ToDo",
-//         created: Date.now(),
-//         deadline: Date.now()
+//     if(!storedValue){
+//         return defaultValue;
 //     }
-// ]
 
-// const filters = {
-//     status: "ToDo",
-//     orderBy: ["created", "asc"]
+//     return JSON.parse(storedValue)
 // }
 
-const newTaskTitleInput = document.querySelector("#add-task-input")
-const newTaskButton = document.querySelector("#add-task-button")
+// // const tasls = [
+// //     {
+// //         id: 1,
+// //         title: "Task 1",
+// //         description: "Do something",
+// //         status: "ToDo",
+// //         created: Date.now(),
+// //         deadline: Date.now()
+// //     },
+// //     {
+// //         id: 2,
+// //         title: "Task 2",
+// //         description: "Do something",
+// //         status: "ToDo",
+// //         created: Date.now(),
+// //         deadline: Date.now()
+// //     },
+// //     {
+// //         id: 3,
+// //         title: "Task 3",
+// //         description: "Do something",
+// //         status: "ToDo",
+// //         created: Date.now(),
+// //         deadline: Date.now()
+// //     }
+// // ]
 
-const taskList = document.querySelector("#task-list")
+// // const filters = {
+// //     status: "ToDo",
+// //     orderBy: ["created", "asc"]
+// // }
+
+// const newTaskTitleInput = document.querySelector("#add-task-input")
+// const newTaskButton = document.querySelector("#add-task-button")
+
+// const taskList = document.querySelector("#task-list")
 
 const taskListElement = (task) => {
     const li = document.createElement("li")
@@ -127,34 +127,33 @@ const taskListElement = (task) => {
     return li
 }
 
-const tasks = loadData("tasks", [])
 
-const renderList = () => {
-    taskList.innerHTML = ""
-    tasks.forEach(task => taskList.append(taskListElement(task)))
-}
+// const tasks = loadData("tasks", [])
 
-const addTask = (task) => {
-    tasks.push(task)
-    saveData("tasks", tasks)
-    renderList()
-}
+// const renderList = () => {
+//     taskList.innerHTML = ""
+//     tasks.forEach(task => taskList.append(taskListElement(task)))
+// }
 
-newTaskButton.addEventListener("click", () => {
-    const lastId = loadData("lastTaskId", 0)
-    saveData("lastTaskId", lastId + 1)
+// const addTask = (task) => {
+//     tasks.push(task)
+//     saveData("tasks", tasks)
+//     renderList()
+// }
 
-    const task = {
-        id: lastId + 1,
-        title: newTaskTitleInput.value,
-        description: "NO DESCRIPTION",
-        status: "ToDo",
-        created: Date.now()
-    }
+// newTaskButton.addEventListener("click", () => {
+//     const lastId = loadData("lastTaskId", 0)
+//     saveData("lastTaskId", lastId + 1)
 
-    addTask(task)
-})
+//     const task = {
+//         id: lastId + 1,
+//         title: newTaskTitleInput.value,
+//         description: "NO DESCRIPTION",
+//         status: "ToDo",
+//         created: Date.now()
+//     }
 
-renderList();
+//     addTask(task)
+// })
 
-
+// renderList();
