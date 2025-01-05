@@ -3,23 +3,21 @@ const Database = require("./db")
 const db = new Database("data.json")
 
 const commands = {
-    UNKNOWN: function(...args) {
-        console.log(`Unknown command`)
-    },
-    get: function({name}) {
-        const value = db.get(name)
-        if(value){
-            console.log(`[${name}]: ${value}`)
+    get: function({ table, name }) {
+        const value = db.get(table, name)
+        if (value) {
+            console.log(`[${table}.${name}]: ${value}`)
         } else {
-            console.log(`${name} is not defined`)
+            console.log(`${table}.${name} is not defined`)
         }
     },
-    set: function({name, value}) {
-        db.set(name, value)
-        console.log(`${name} is now set to ${value}`)
+    set: function({ table, name, value }) {
+        db.set(table, name, value);
+        console.log(`${table}.${name} is now set to ${value}`)
     },
-    del: function({name}){
-        db.del(name)
+    del: function({ table, name }) {
+        db.del(table, name);
+        console.log(`${table}.${name} has been deleted`)
     }
 }
 

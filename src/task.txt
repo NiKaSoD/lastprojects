@@ -1,3 +1,0 @@
-get [key]
-set [key] [value]
-del [key]

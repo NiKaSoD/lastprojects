@@ -3,8 +3,13 @@ const commands = require("./commands")
 
 yargs.command(
     "get",
-    "Reads value by the specified name",
+    "Reads value by the specified table and name",
     {
+        table: {
+            alias: "t",
+            demand: true,
+            type: "string"
+        },
         name: {
             alias: "n",
             demand: true,
@@ -14,8 +19,13 @@ yargs.command(
     commands.get
 ).command(
     "set",
-    "Sets value for the specified name",
+    "Sets value for the specified table and name",
     {
+        table: {
+            alias: "t",
+            demand: true,
+            type: "string"
+        },
         name: {
             alias: "n",
             demand: true,
@@ -29,8 +39,13 @@ yargs.command(
     commands.set
 ).command(
     "del",
-    "Deletes record by the specified name",
+    "Deletes record by the specified table and name",
     {
+        table: {
+            alias: "t",
+            demand: true,
+            type: "string"
+        },
         name: {
             alias: "n",
             demand: true,
