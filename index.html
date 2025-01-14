@@ -10,30 +10,30 @@
 <body>
     <header><p>Список завдань</p></header>
 
+    <div class="buttons-be-like">
+        <form class="filter-task-form bg-color">
+            <label for="filter-do">
+                <input type="radio" name="filter" id="filter-do" value="do">
+                <div class="filter-value">Зробити</div>
+            </label>
+            
+    
+            <label for="filter-done">
+                <input type="radio" name="filter" id="filter-done" value="done">
+                <div class="filter-value">Зроблено</div>
+            </label>
+    
+            <label for="filter-all">
+                <input type="radio" name="filter" id="filter-all" value="">
+                <div class="filter-value">Усі</div>
+            </label>
+        </form>
 
-    <form class="new-task bg-color" id="new-task-form">
-        <!-- <input type="text" placeholder="Введіть нову задачу" id="add-task-input" name="task-name" required autocomplete="off"> -->
-        <!-- remove this element to place with categories.... -->
-        <input type="button" value="Додати нову задачу" id="add-task-button"> 
-    </form>
-
-    <form class="filter-task-form bg-color">
-        <label for="filter-do">
-            <input type="radio" name="filter" id="filter-do" value="do">
-            <div class="filter-value">Зробити</div>
-        </label>
-        
-
-        <label for="filter-done">
-            <input type="radio" name="filter" id="filter-done" value="done">
-            <div class="filter-value">Зроблено</div>
-        </label>
-
-        <label for="filter-all">
-            <input type="radio" name="filter" id="filter-all" value="">
-            <div class="filter-value">Усі</div>
-        </label>
-    </form>
+        <form class="new-task bg-color" id="new-task-form">
+            <input type="button" value="Додати нову задачу" id="create-task-button"> 
+        </form>
+    </div>
+    
         
     <ol class="tasks bg-color">
 
@@ -84,6 +84,6 @@
 
 
     
-    <script src="indexClass.js" defer></script>
+    <script type="module" src="src\index.js" defer></script>
 </body>
 </html>

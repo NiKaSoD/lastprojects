@@ -1,7 +1,7 @@
 :root{
   --bg-main: #428150;
   --bg-color-main: rgba(255, 255, 255, 0.5);
-  --bg-color-main-f: rgb(255, 255, 255);
+  --bg-color-main-f: rgb(152, 152, 152);
   --bg-color-second: #ffffff;
   --font-size-text: 1.5rem;
   --font-size-hint: 1.2rem;
@@ -77,7 +77,7 @@ input:hover + div.filter-value {
 }
 
 .modal-content {
-  background-color: var(--bg-color-main);
+  background-color: var(--bg-color-main-f);
   padding: 0.75rem;
   
   min-width: 500px;
@@ -129,7 +129,18 @@ header{
   /* text-shadow: rgb(255, 255, 255) 2px 0 10px; */
 }
 
+.buttons-be-like{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+
+  margin: 0;
+  padding: 0;
+}
+
 .new-task{
+  min-width: 250px;
   height: 60px;
   padding: 6px;
   margin: 5px 0;
@@ -137,22 +148,23 @@ header{
   display: flex;
   gap: 15px;
 
-  #add-task-input{
+  /* #add-task-input{
       flex-grow: 7;
 
       font-size: var(--font-size-text);
-  }
+  } */
 
-  #add-task-button{
-      flex-grow: 3;
-      font-size: var(--font-size-text);
+  #create-task-button{
+    width: 100%;
+    font-size: var(--font-size-text);
   }
 }
 
 .filter-task-form{
   height: 60px;
-  width: 50vw;
-  margin: auto;
+  width: 500px;
+  margin: 5px;
+  padding: 6px;
 
   display: flex;
   flex-direction: row;
@@ -165,7 +177,7 @@ header{
 }
 
 .tasks{
-  height: calc(100vh - 260px);
+  height: calc(100vh - 210px);
   overflow: auto;
 
   border: 5px solid rgba(255, 255, 255, 0);
