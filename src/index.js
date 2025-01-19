@@ -95,7 +95,7 @@ function renderFilter(){
 }
 
 buttonCreateTask.addEventListener("click", () =>{
-    showCreateWindow()
+    showCreateForm()
 })
 
 formFilter.addEventListener("change", (event) => {
@@ -112,7 +112,7 @@ taskList.addEventListener("click", (event) => {
     }
     
     const id = taskElement.id.replace("task-", "")
-    showEditWindow(id)
+    showEditForm(id)
 })
 
 const showModal = (...content) => {
@@ -138,9 +138,9 @@ const showModal = (...content) => {
     return hideModal
 }
 
-const showCreateWindow = () => {
+const showCreateForm = () => {
     const mainForm = document.createElement("form")
-    mainForm.classList.add("modal-create-form")
+    mainForm.classList.add("modal-form")
 
     const nameTaskDiv = document.createElement("div")
     const nameTaskP = document.createElement("p")
@@ -242,13 +242,13 @@ function getTaskById(id){
     return tasks.find((task) => task.id === parseInt(id))
 }
 
-const showEditWindow = (elementId) => {
+const showEditForm = (elementId) => {
     const task = getTaskById(elementId)
     const elementsInputData = []
 
 
     const mainForm = document.createElement("form")
-    mainForm.classList.add("modal-create-form")
+    mainForm.classList.add("modal-form")
 
     const nameTaskDiv = document.createElement("div")
     const nameTaskP = document.createElement("p")
@@ -318,7 +318,7 @@ const showEditWindow = (elementId) => {
     const createTaskDiv = document.createElement("div")
     const createTaskButton = document.createElement("input")
     createTaskButton.type = "button"
-    createTaskButton.value = "Додати нову задачу"
+    createTaskButton.value = "Редагувати"
     createTaskButton.id = "add-task-button"
     
     createTaskDiv.append(createTaskButton)
@@ -333,7 +333,15 @@ const showEditWindow = (elementId) => {
     const hide =  showModal(mainForm)
 
     createTaskButton.addEventListener("click", () => {
-        elementsInputData.forEach((element) => element.removeAttribute("disabled"))
+
+        if(createTaskButton.value === "Редагувати"){
+            elementsInputData.forEach((element) => element.removeAttribute("disabled"))
+            createTaskButton.value = "Зберегти"
+        }
+        else{
+            elementsInputData.forEach((element) => element.setAttribute("disabled", ""))
+            createTaskButton.value = "Редагувати"
+        }
     })
 }
 
