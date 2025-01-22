@@ -1,349 +1,371 @@
-const buttonCreateTask = document.querySelector("#create-task-button")
-const taskList = document.querySelector(".tasks")
-const taskListElement = ((task) => {
-    const li = document.createElement("li")
-    li.classList.add("bg-color")
-    li.innerHTML= `${task.name}`
+const addNewTaskButton = document.querySelector("#create-task-button")
+const taskListContainer = document.querySelector(".tasks")
+const filterForm = document.querySelector(".filter-task-form")
+
+const createTaskElement = ((task) => {
+    const listItem = document.createElement("li")
+    listItem.classList.add("bg-color")
+    listItem.innerHTML = `${task.name}`
     
-    li.id = "task-" + task.id
-    li.classList.add("task")
+    listItem.id = "task-" + task.id
+    listItem.classList.add("task")
     if(task.status === "done"){
-        li.classList.add("done")
+        listItem.classList.add("done")
     }
-    return li
+
+    return listItem
 })
-const formFilter = document.querySelector(".filter-task-form")
 
-
-function setData(key, value){
+function setLocalStorageData(key, value){
     localStorage.setItem(key, JSON.stringify(value))
 }
 
-function getData(key, defaultValue = null){
-    const dataValue = localStorage.getItem(key)
+function getLocalStorageData(key, defaultValue = null){
+    const storedValue = localStorage.getItem(key)
 
-    if(!dataValue){
-        setData(key, defaultValue)
+    if(!storedValue){
+        setLocalStorageData(key, defaultValue)
         return defaultValue
     }
-    return JSON.parse(dataValue)
+    return JSON.parse(storedValue)
 }
 
-function getLastId(){
-    const lastId  = getData("lastTaskId", 0) + 1
-    setData("lastTaskId", lastId)
-    return lastId
+function generateNewTaskId(){
+    const newId = getLocalStorageData("lastTaskId", 0) + 1
+    setLocalStorageData("lastTaskId", newId)
+    return newId
 }
 
-const tasks = getData("tasks", [])
+const tasksList = getLocalStorageData("tasks", [])
+let activeFilter = getLocalStorageData("filter", null)
 
-let filter = getData("filter", null)
-
-class Task{
-    id
-    name
-    description
-    priority
-    status
-    created
-    deadline
-    constructor(lastId, name = "Task", description = "Description", priority = 2, status = "do", date = Date(), deadline = null){
-        this.id = lastId,
-        this.name = name,
-        this.description = description,
-        this.priority = priority,
-        this.status = status,
-        this.created = date,
+class Task {
+    constructor(taskId, name = "Task", description = "Description", priority = 2, status = "do", date = new Date().toISOString(), deadline = null) {
+        this.id = parseInt(taskId)
+        this.name = name
+        this.description = description
+        this.priority = priority
+        this.status = status
+        this.created = date
         this.deadline = deadline
     }
+    
+    save() {
+        tasksList.push(this)
+        setLocalStorageData("tasks", tasksList)
+        renderTasksList()
+    }
 
-    addTask(){
-        tasks.push(this)
-        setData("tasks", tasks)
-        renderForm()
+    update(name, description, priority, deadline) {
+        this.name = name
+        this.description = description
+        this.priority = priority
+        this.deadline = deadline
+        
+        setLocalStorageData("tasks", tasksList)
+        renderTasksList()
     }
 }
 
-function renderForm() {
-    taskList.innerHTML = ""
+function renderTasksList() {
+    taskListContainer.innerHTML = ""
     
-    let filteredTasks = []
+    let tasksToShow = []
 
-
-    if(filter){
-        filteredTasks = tasks.filter((task) => {
-            return task.status === filter
+    if(activeFilter){
+        tasksToShow = tasksList.filter((task) => {
+            return task.status === activeFilter
         })
     }else{
-        filteredTasks = tasks
+        tasksToShow = tasksList
     }
 
-    filteredTasks.forEach((task) => taskList.append(taskListElement(task)))
+    tasksToShow.forEach((task) => taskListContainer.append(createTaskElement(task)))
 }
 
-function renderFilter(){
-    const filterSelector = filter === null ? "" : filter
-
-    const selectedButton = document.querySelector(`input[name="filter"][value="${filterSelector}"]`)
+function renderActiveFilter(){
+    const filterValue = activeFilter === null ? "" : activeFilter
+    const selectedFilterButton = document.querySelector(`input[name="filter"][value="${filterValue}"]`)
     
-    if(selectedButton){
-        selectedButton.checked = true
+    if(selectedFilterButton){
+        selectedFilterButton.checked = true
     }
     else{
-        console.log("smth went wrong")
+        console.log("Filter selection error")
     }
 }
-
-buttonCreateTask.addEventListener("click", () =>{
-    showCreateForm()
-})
-
-formFilter.addEventListener("change", (event) => {
-    filter = event.target.value || null
-    setData("filter", filter)
-    
-    renderForm()
-});
-
-taskList.addEventListener("click", (event) => {
-    const taskElement = event.target.closest(".task")
-    if(!taskElement) {
-        return
-    }
-    
-    const id = taskElement.id.replace("task-", "")
-    showEditForm(id)
-})
 
 const showModal = (...content) => {
-    const contentBlock = document.createElement("div")
-    contentBlock.classList.add("modal-content")
-    contentBlock.addEventListener("click", (e) => {
+    const modalContent = document.createElement("div")
+    modalContent.classList.add("modal-content")
+    modalContent.addEventListener("mousedown", (e) => {
         e.stopPropagation()
     })
-    contentBlock.append(...content)
+    modalContent.append(...content)
 
-    const container = document.createElement("div")
-    container.classList.add("modal-container")
-    container.append(contentBlock)
+    const modalContainer = document.createElement("div")
+    modalContainer.classList.add("modal-container")
+    modalContainer.append(modalContent)
 
-    const hideModal = () => {
-        container.parentElement.removeChild(container)
+    const closeModal = () => {
+        modalContainer.parentElement.removeChild(modalContainer)
     }
 
-    container.addEventListener("click", hideModal)
+    modalContainer.addEventListener("mousedown", closeModal)
+    document.body.append(modalContainer)
 
-    document.body.append(container)
-
-    return hideModal
+    return closeModal
 }
 
-const showCreateForm = () => {
-    const mainForm = document.createElement("form")
-    mainForm.classList.add("modal-form")
+function createInputField(labelText, type = "text", isRequired = true, placeholder = "") {
+    const containerDiv = document.createElement("div")
+    const label = document.createElement("p")
+    label.innerHTML = labelText
+    
+    const input = document.createElement("input")
+    input.type = type
+    if (placeholder) input.placeholder = placeholder
+    if (isRequired) input.setAttribute("required", "")
+    input.setAttribute("disabled", "")
+    
+    containerDiv.append(label, input)
+    return { containerDiv, input }
+}
 
-    const nameTaskDiv = document.createElement("div")
-    const nameTaskP = document.createElement("p")
-    nameTaskP.innerHTML = "Назва задачі"
-    const nameTaskInput = document.createElement("input")
-    nameTaskInput.placeholder = "Введіть назву задачі"
-    nameTaskInput.id = "add-task-input"
-    nameTaskInput.name = "task-name"
-    nameTaskInput.autocomplete = "off"
-    nameTaskInput.setAttribute("required", "")
+function createTextArea(labelText, isRequired = true, placeholder = "") {
+    const containerDiv = document.createElement("div")
+    const label = document.createElement("p")
+    label.innerHTML = labelText
+    
+    const textarea = document.createElement("textarea")
+    if (placeholder) textarea.placeholder = placeholder
+    if (isRequired) textarea.setAttribute("required", "")
+    textarea.setAttribute("disabled", "")
+    textarea.id = "task-description"
+    
+    containerDiv.append(label, textarea)
+    return { containerDiv, textarea }
+}
 
-    nameTaskDiv.append(nameTaskP)
-    nameTaskDiv.append(nameTaskInput)
+function createPrioritySelect(labelText, selectedValue = "2") {
+    const containerDiv = document.createElement("div")
+    const label = document.createElement("p")
+    label.innerHTML = labelText
+    
+    const select = document.createElement("select")
+    select.setAttribute("required", "")
+    select.setAttribute("disabled", "")
 
-
-    const descriptionTaskDiv = document.createElement("div")
-    const descriptionTaskP = document.createElement("p")
-    descriptionTaskP.innerHTML = "Опис задачі"
-    const descriptionTaskTextarea = document.createElement("textarea")
-    descriptionTaskTextarea.placeholder = "Введіть опис задачі"
-    descriptionTaskTextarea.id = "add-task-textarea"
-    descriptionTaskTextarea.name = "task-description"
-    descriptionTaskTextarea.autocomplete = "off"
-    descriptionTaskTextarea.setAttribute("required", "")
-
-    descriptionTaskDiv.append(descriptionTaskP)
-    descriptionTaskDiv.append(descriptionTaskTextarea)
-
-
-    const priorityTaskDiv = document.createElement("div")
-    const priorityTaskP = document.createElement("p")
-    priorityTaskP.innerHTML = "Пріоритет задачі"
-    const priorityTaskSelect = document.createElement("select")
-    priorityTaskSelect.id = "add-task-select"
-    priorityTaskSelect.name = "task-priority"
-    priorityTaskSelect.setAttribute("required", "")
-
-    let prioritysArray = [{text: "Високий пріоритет", value: 3}, {text: "Середній пріоритет", value: 2}, {text: "Низький пріорітет", value: 1}]
-    prioritysArray.forEach((element) => {
+    const priorities = [
+        {text: "Високий пріоритет", value: "3"},
+        {text: "Середній пріоритет", value: "2"},
+        {text: "Низький пріоритет", value: "1"}
+    ]
+    
+    priorities.forEach(({text, value}) => {
         const option = document.createElement("option")
-        option.text = element.text
-        option.value = element.value
-        priorityTaskSelect.append(option)
+        option.text = text
+        option.value = value
+        select.append(option)
     })
-    priorityTaskSelect.value = "2"
     
-    priorityTaskDiv.append(priorityTaskP)
-    priorityTaskDiv.append(priorityTaskSelect)
-
+    select.value = selectedValue
     
-    const deadlineTaskDiv = document.createElement("div")
-    const deadlineTaskP = document.createElement("p")
-    deadlineTaskP.innerHTML = "Кінцевий термін"
-    const deadlineTaskInput = document.createElement("input")
-    deadlineTaskInput.type = "datetime-local"
-    deadlineTaskInput.id = "task-datetime"
-    
-    deadlineTaskDiv.append(deadlineTaskP)
-    deadlineTaskDiv.append(deadlineTaskInput)
+    containerDiv.append(label, select)
+    return { containerDiv, select }
+}
 
-    
-    const createTaskDiv = document.createElement("div")
-    const createTaskButton = document.createElement("input")
-    createTaskButton.type = "button"
-    createTaskButton.value = "Додати нову задачу"
-    createTaskButton.id = "add-task-button"
-    
-    createTaskDiv.append(createTaskButton)
+const showCreateTaskForm = () => {
+    const taskForm = document.createElement("form")
+    taskForm.classList.add("modal-form")
+
+    const { containerDiv: nameContainer, input: nameInput } = 
+        createInputField("Назва задачі", "text", true, "Введіть назву задачі")
+    nameInput.removeAttribute("disabled")
+
+    const { containerDiv: descContainer, textarea: descriptionTextarea } = 
+        createTextArea("Опис задачі", true, "Введіть опис задачі")
+    descriptionTextarea.removeAttribute("disabled")
+
+    const { containerDiv: priorityContainer, select: prioritySelect } = 
+        createPrioritySelect("Пріоритет задачі")
+    prioritySelect.removeAttribute("disabled")
+
+    const { containerDiv: deadlineContainer, input: deadlineInput } = 
+        createInputField("Крайній срок", "datetime-local", true)
+    deadlineInput.removeAttribute("disabled")
+
+    const buttonContainer = document.createElement("div")
+    const submitButton = document.createElement("input")
+    submitButton.type = "button"
+    submitButton.value = "Створити задачу"
+    submitButton.className = "form-button"
+    buttonContainer.append(submitButton)    
 
 
-    mainForm.append(nameTaskDiv)
-    mainForm.append(descriptionTaskDiv)
-    mainForm.append(priorityTaskDiv)
-    mainForm.append(deadlineTaskDiv)
-    mainForm.append(createTaskDiv)
+    taskForm.append(
+        nameContainer, 
+        descContainer, 
+        priorityContainer, 
+        deadlineContainer, 
+        buttonContainer
+    )
 
-    const hide =  showModal(mainForm)
+    const closeModal = showModal(taskForm)
 
+    buttonContainer.addEventListener("click", () => {
+        const name = nameInput.value.trim()
+        const description = descriptionTextarea.value.trim()
+        const priority = prioritySelect.value 
+        const deadline = deadlineInput.value
 
-    createTaskButton.addEventListener("click", () => {
-        const name = nameTaskInput.value.trim()
-        const description = descriptionTaskTextarea.value.trim()
-        const priority = priorityTaskSelect.value 
-        const status = "do" 
-        const created = new Date()
-        const deadline = deadlineTaskInput.value
-
-        if(!name||!description||!priority||!status||!created||!deadline){
+        if(!name || !description || !priority || !deadline) {
             return
         }
-        console.log(created, deadline)
-        const task = new Task(getLastId(), name, description, priority, status, created, deadline)    
-        task.addTask()
-        hide()
+
+        const newTask = new Task(generateNewTaskId(), name, description, priority, "do", new Date().toISOString(), deadline)    
+        newTask.save()
+        closeModal()
     })
 }
 
-function getTaskById(id){
-    return tasks.find((task) => task.id === parseInt(id))
+function findTaskById(id){
+    const taskData = tasksList.find((task) => task.id === parseInt(id))
+    if (!taskData) return null
+    
+    const task = new Task(
+        taskData.id,
+        taskData.name,
+        taskData.description,
+        taskData.priority,
+        taskData.status,
+        taskData.created,
+        taskData.deadline
+    )
+    
+    const taskIndex = tasksList.findIndex((t) => t.id === parseInt(id))
+    if (taskIndex !== -1) {
+        tasksList[taskIndex] = task
+    }
+    
+    return task
 }
 
-const showEditForm = (elementId) => {
-    const task = getTaskById(elementId)
-    const elementsInputData = []
+const showTaskDetailsForm = (taskId) => {
+    const task = findTaskById(taskId)
+    const editableElements = []
 
+    const taskForm = document.createElement("form")
+    taskForm.classList.add("modal-form")
 
-    const mainForm = document.createElement("form")
-    mainForm.classList.add("modal-form")
+    const { containerDiv: nameContainer, input: nameInput } = 
+        createInputField("Назва задачі", "text", true)
+    nameInput.value = task.name
+    editableElements.push(nameInput)
 
-    const nameTaskDiv = document.createElement("div")
-    const nameTaskP = document.createElement("p")
-    nameTaskP.innerHTML = "Назва задачі"
-    const nameTaskInput = document.createElement("input")
-    nameTaskInput.placeholder = "Введіть назву задачі"
-    nameTaskInput.id = "add-task-input"
-    nameTaskInput.name = "task-name"
-    nameTaskInput.autocomplete = "off"
-    nameTaskInput.setAttribute("disabled", "")
-    nameTaskInput.setAttribute("required", "")
-    nameTaskInput.value = task.name
-    elementsInputData.push(nameTaskInput)
-    nameTaskDiv.append(nameTaskP)
-    nameTaskDiv.append(nameTaskInput)
+    const { containerDiv: descContainer, textarea: descriptionTextarea } = 
+        createTextArea("Опис задачі", true)
+    descriptionTextarea.value = task.description
+    editableElements.push(descriptionTextarea)
 
-    const descriptionTaskDiv = document.createElement("div")
-    const descriptionTaskP = document.createElement("p")
-    descriptionTaskP.innerHTML = "Опис задачі"
-    const descriptionTaskTextarea = document.createElement("textarea")
-    descriptionTaskTextarea.placeholder = "Введіть опис задачі"
-    descriptionTaskTextarea.id = "add-task-textarea"
-    descriptionTaskTextarea.name = "task-description"
-    descriptionTaskTextarea.autocomplete = "off"
-    descriptionTaskTextarea.setAttribute("required", "")
-    descriptionTaskTextarea.setAttribute("disabled", "")
-    descriptionTaskTextarea.value = task.description
-    elementsInputData.push(descriptionTaskTextarea)    
-    descriptionTaskDiv.append(descriptionTaskP)
-    descriptionTaskDiv.append(descriptionTaskTextarea)
+    const { containerDiv: priorityContainer, select: prioritySelect } = 
+        createPrioritySelect("Пріоритет задачі", task.priority)
+    editableElements.push(prioritySelect)
 
+    const { containerDiv: deadlineContainer, input: deadlineInput } = 
+        createInputField("Крайній срок", "datetime-local", true)
+    deadlineInput.value = task.deadline
+    editableElements.push(deadlineInput)
 
-    const priorityTaskDiv = document.createElement("div")
-    const priorityTaskP = document.createElement("p")
-    priorityTaskP.innerHTML = "Пріоритет задачі"
-    const priorityTaskSelect = document.createElement("select")
-    priorityTaskSelect.id = "add-task-select"
-    priorityTaskSelect.name = "task-priority"
-    priorityTaskSelect.setAttribute("required", "")
-    priorityTaskSelect.setAttribute("disabled", "")
-
-    let prioritysArray = [{text: "Високий пріоритет", value: 3}, {text: "Середній пріоритет", value: 2}, {text: "Низький пріорітет", value: 1}]
-    prioritysArray.forEach((element) => {
-        const option = document.createElement("option")
-        option.text = element.text
-        option.value = element.value
-        priorityTaskSelect.append(option)
-    })
-
-    priorityTaskSelect.value = task.priority
-    elementsInputData.push(priorityTaskSelect)
-    priorityTaskDiv.append(priorityTaskP)
-    priorityTaskDiv.append(priorityTaskSelect)
-
-    const deadlineTaskDiv = document.createElement("div")
-    const deadlineTaskP = document.createElement("p")
-    deadlineTaskP.innerHTML = "Кінцевий термін"
-    const deadlineTaskInput = document.createElement("input")
-    deadlineTaskInput.type = "datetime-local"
-    deadlineTaskInput.id = "task-datetime"
-    deadlineTaskInput.setAttribute("disabled", "")
-    deadlineTaskInput.value = task.deadline
-    elementsInputData.push(deadlineTaskInput)
-    deadlineTaskDiv.append(deadlineTaskP)
-    deadlineTaskDiv.append(deadlineTaskInput)
+    const buttonsContainer = document.createElement("div")
+    buttonsContainer.style.display = "flex"
+    buttonsContainer.style.gap = "10px"
     
-    const createTaskDiv = document.createElement("div")
-    const createTaskButton = document.createElement("input")
-    createTaskButton.type = "button"
-    createTaskButton.value = "Редагувати"
-    createTaskButton.id = "add-task-button"
+    const editButton = document.createElement("input")
+    editButton.type = "button"
+    editButton.value = "Редагувати"
+    editButton.className = "form-button edit-button"
+    editButton.style.flex = "1"
     
-    createTaskDiv.append(createTaskButton)
+    const toggleStatusButton = document.createElement("input")
+    toggleStatusButton.type = "button"
+    toggleStatusButton.value = task.status === "done" ? "Повернути до роботи" : "Відзначити виконаним"
+    toggleStatusButton.className = `form-button ${task.status === "done" ? "undone-button" : "done-button"}`
+    toggleStatusButton.style.flex = "1"
+    
+    const deleteButton = document.createElement("input")
+    deleteButton.type = "button"
+    deleteButton.value = "Видалити"
+    deleteButton.className = "form-button delete-button"
+    deleteButton.style.flex = "1"
 
+    buttonsContainer.append(toggleStatusButton, editButton, deleteButton)
 
-    mainForm.append(nameTaskDiv)
-    mainForm.append(descriptionTaskDiv)
-    mainForm.append(priorityTaskDiv)
-    mainForm.append(deadlineTaskDiv)
-    mainForm.append(createTaskDiv)
+    taskForm.append(
+        nameContainer,
+        descContainer,
+        priorityContainer,
+        deadlineContainer,
+        buttonsContainer
+    )
 
-    const hide =  showModal(mainForm)
+    const closeModal = showModal(taskForm)
 
-    createTaskButton.addEventListener("click", () => {
+    editButton.addEventListener("click", () => {
+        if(editButton.value === "Редагувати") {
+            editableElements.forEach(element => element.removeAttribute("disabled"))
+            editButton.value = "Зберегти"
+            editButton.className = "form-button save-button"
+        } else {
+            const name = nameInput.value.trim()
+            const description = descriptionTextarea.value.trim()
+            const priority = prioritySelect.value
+            const deadline = deadlineInput.value
 
-        if(createTaskButton.value === "Редагувати"){
-            elementsInputData.forEach((element) => element.removeAttribute("disabled"))
-            createTaskButton.value = "Зберегти"
-        }
-        else{
-            elementsInputData.forEach((element) => element.setAttribute("disabled", ""))
-            createTaskButton.value = "Редагувати"
+            if(!name || !description || !priority || !deadline) {
+                return
+            }
+
+            task.update(name, description, priority, deadline)
+            closeModal()
         }
     })
+
+    toggleStatusButton.addEventListener("click", () => {
+        task.status = task.status === "done" ? "do" : "done"
+        setLocalStorageData("tasks", tasksList)
+        closeModal()
+        renderTasksList()
+    })
+
+    deleteButton.addEventListener("click", () => {
+        if (confirm("Вы уверены, что хотите удалить эту задачу?")) {
+            const taskIndex = tasksList.findIndex(t => t.id === task.id)
+            if (taskIndex !== -1) {
+                tasksList.splice(taskIndex, 1)
+                setLocalStorageData("tasks", tasksList)
+                closeModal()
+                renderTasksList()
+            }
+        }
+    })
 }
 
-renderFilter()
-renderForm()
+addNewTaskButton.addEventListener("click", showCreateTaskForm)
+
+filterForm.addEventListener("change", (event) => {
+    activeFilter = event.target.value || null
+    setLocalStorageData("filter", activeFilter)
+    renderTasksList()
+})
+
+taskListContainer.addEventListener("click", (event) => {
+    const taskElement = event.target.closest(".task")
+    if(!taskElement) return
+    
+    const taskId = taskElement.id.replace("task-", "")
+    showTaskDetailsForm(taskId)
+})
+
+renderActiveFilter()
+renderTasksList()
