@@ -1,0 +1,11 @@
+:root{
+    --bg-main: #428150;
+    --bg-color-main: rgba(255, 255, 255, 0.5);
+    --bg-color-main-f: rgb(152, 152, 152);
+    --bg-color-second: #ffffff;
+    --font-size-text: 1.5rem;
+    --font-size-hint: 1.2rem;
+    --bg-image: url("images/timofey.jpg");
+    --bg-dark: rgb(19, 19, 19);
+}
+

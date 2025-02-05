@@ -1,0 +1,8 @@
+header{
+    height: 60px;
+  
+  
+    color: var(--bg-color-main);
+    font-size: 3.3rem;
+    text-align: center;
+  }
