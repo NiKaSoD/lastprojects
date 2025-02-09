@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { TasksContext } from '../../App.jsx';
 import cls from './Tasks.module.css';
 
-const Tasks = ({ tasks, removeTask }) => {
+const Tasks = () => {
+  const { tasks, removeTask } = useContext(TasksContext);
+  
   return (
     <ol className={[cls.tasks, "bg_color"].join(' ')}>
       {tasks.map(task => (

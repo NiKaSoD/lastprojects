@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext, createContext } from 'react';
 import './App.css';
 import './theme/theme.css';
 import Header from './component/header/header';
@@ -6,7 +6,7 @@ import TasksFilter from './component/TasksFilter/TasksFilter';
 import Tasks from './component/tasks/Tasks';
 import Footer from './component/footer/Footer';
 
-
+export const TasksContext = createContext();
 
 
 function App() {
@@ -26,12 +26,12 @@ function App() {
   };
 
   return (
-    <>
+    <TasksContext.Provider value={{tasks, addTask, removeTask}}>
       <Header />
-      <TasksFilter addTask={addTask} />
-      <Tasks tasks={tasks} removeTask={removeTask} />
+      <TasksFilter/>
+      <Tasks />
       <Footer />
-    </>
+    </TasksContext.Provider>
   );
 }
 

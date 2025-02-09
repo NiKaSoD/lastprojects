@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import cls from './TasksFilter.module.css';
+import { TasksContext } from '../../App.jsx';
 
-const TasksFilter = ({ addTask }) => {
+const TasksFilter = () => {
   const [newTask, setNewTask] = useState("");
+  const { addTask } = useContext(TasksContext);
+  const inputRef = useRef(null);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (newTask.trim()) {
       addTask(newTask.trim());
       setNewTask("");
+      inputRef.current?.focus();
     }
   };
 
@@ -39,6 +44,7 @@ const TasksFilter = ({ addTask }) => {
         <input 
           type="text" 
           value={newTask}
+          ref={inputRef}
           onChange={(e) => setNewTask(e.target.value)}
           placeholder="Новая задача"
         />
