@@ -4,9 +4,8 @@ import { TasksContext } from '../../App.jsx';
 
 const TasksFilter = () => {
   const [newTask, setNewTask] = useState("");
-  const { addTask } = useContext(TasksContext);
+  const { addTask, setFilterStatus } = useContext(TasksContext);
   const inputRef = useRef(null);
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,18 +19,34 @@ const TasksFilter = () => {
   return (
     <div className={cls.buttonsbelike}>
       <form className={[cls.filter_task_form, "bg_color"].join(' ')}>
-        <label htmlFor="filter-do">
-          <input type="radio" name="filter" id="filter-do" value="do" />
+        <label>
+          <input 
+            type="radio" 
+            name="filter" 
+            value="do" 
+            onChange={(e) => setFilterStatus(e.target.value)}
+          />
           <div className={cls.filter_value}>Зробити</div>
         </label>
 
-        <label htmlFor="filter-done">
-          <input type="radio" name="filter" id="filter-done" value="done" />
+        <label>
+          <input 
+            type="radio" 
+            name="filter" 
+            value="done" 
+            onChange={(e) => setFilterStatus(e.target.value)}
+          />
           <div className={cls.filter_value}>Зроблено</div>
         </label>
 
-        <label htmlFor="filter-all">
-          <input type="radio" name="filter" id="filter-all" value="" />
+        <label>
+          <input 
+            type="radio" 
+            name="filter" 
+            value="" 
+            defaultChecked
+            onChange={(e) => setFilterStatus(e.target.value)}
+          />
           <div className={cls.filter_value}>Усі</div>
         </label>
       </form>

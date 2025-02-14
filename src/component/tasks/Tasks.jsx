@@ -3,21 +3,21 @@ import { TasksContext } from '../../App.jsx';
 import cls from './Tasks.module.css';
 
 const Tasks = () => {
-  const { tasks, removeTask } = useContext(TasksContext);
+  const { filteredTasks, removeTask, doneTask } = useContext(TasksContext);
   
   return (
     <ol className={[cls.tasks, "bg_color"].join(' ')}>
-      {tasks.map(task => (
-        <li key={task.id}>
-          <span>{task.text}</span>
-          <button 
-            className={cls.deleteButton}
-            onClick={() => removeTask(task.id)}
-          >
-            Удалить
-          </button>
-        </li>
-      ))}
+      {filteredTasks.map(task => (
+          <li key={task.id}>
+            <span className={task.done ? cls.done : ""}>{task.text}</span>
+            <div>
+              <button onClick={() => doneTask(task.id)}>
+                {task.done ? "Повернути" : "Виконано"}
+              </button>
+              <button onClick={() => removeTask(task.id)}>Видалити</button>
+            </div>
+          </li>
+        ))}
     </ol>
   );
 };
