@@ -5,6 +5,7 @@
     padding: 0 10px;
 
     li {
+
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -29,6 +30,10 @@ button {
     }
 }
 
+a{
+    text-decoration: none;
+    color: black;
+}
 
 .done{
     text-decoration: line-through;

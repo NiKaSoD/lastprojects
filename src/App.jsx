@@ -1,4 +1,4 @@
-import { useState, createContext, useMemo } from 'react';
+import { useState, createContext, useMemo, useEffect } from 'react';
 import { BrowserRouter, Route, Routes} from 'react-router';
 import './App.css';
 import './theme/theme.css';
@@ -14,7 +14,10 @@ import TaskDetail from "./component/taskDetail/TaskDetail.jsx";
 export const TasksContext = createContext();
 
 function App() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem('tasks');
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
   const [filterStatus, setFilterStatus] = useState("");
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -23,12 +26,15 @@ function App() {
   const closeModal = () => setModalOpen(false);
 
   const addTask = (name, description = "", priority = 2, deadline = null) => {
+    const now = new Date();
+    const nowDate = now.getFullYear()+'-'+ String(now.getMonth()+1).padStart(2, "0")+'-'+now.getDate();
+
     const newTask = {
       id: Date.now(),
       name,
       description,
       priority,
-      created: new Date().toISOString(),
+      created: nowDate,
       deadline,
       done: false
     };
@@ -53,6 +59,12 @@ function App() {
     return tasks;
   }, [tasks, filterStatus]);
 
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
+
+
   return (
     <BrowserRouter>
     <TasksContext.Provider value={{ tasks, filteredTasks, isModalOpen,
@@ -64,7 +76,7 @@ function App() {
           <Tasks />
           <ModalCreate />
           <Footer /></>} />
-        <Route path="/:task" element={<>
+        <Route path="/task/:id" element={<>
           <TaskDetail />
           <Footer />
         </>}/>

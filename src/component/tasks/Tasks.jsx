@@ -1,5 +1,6 @@
 import React, { useContext, memo } from 'react';
 import { TasksContext } from '../../App.jsx';
+import {Link} from 'react-router';
 import cls from './Tasks.module.css';
 
 const TaskItem = memo(({ task, doneTask, removeTask }) => {
@@ -8,7 +9,9 @@ const TaskItem = memo(({ task, doneTask, removeTask }) => {
 
   return (
     <li>
-      <span className={task.done ? cls.done : ""}>{task.name}</span>
+        <Link to={`/task/${task.id}`} className={task.done ? cls.done : ""}>
+            {task.name}
+        </Link>
       <div>
         <button onClick={handleToggle}>
           {task.done ? "Повернути" : "Виконано"}
