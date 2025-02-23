@@ -4,7 +4,7 @@ import { TasksContext } from '../../App.jsx';
 
 const TasksFilter = () => {
   const [newTask, setNewTask] = useState("");
-  const { addTask, setFilterStatus } = useContext(TasksContext);
+  const { openModal, addTask, setFilterStatus } = useContext(TasksContext);
   const inputRef = useRef(null);
 
   const handleSubmit = (e) => {
@@ -56,15 +56,16 @@ const TasksFilter = () => {
         id="new-task-form"
         onSubmit={handleSubmit}
       >
-        <input 
+        {/* <input 
           type="text" 
           value={newTask}
           ref={inputRef}
           onChange={(e) => setNewTask(e.target.value)}
           placeholder="Новая задача"
-        />
+        /> */}
         <input 
-          type="submit" 
+          type='button'
+          onClick={openModal}
           value="Додати нову задачу" 
           id={cls.create_task_button}
         />

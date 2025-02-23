@@ -1,22 +1,36 @@
-import { useState, useContext, createContext, useMemo } from 'react';
+import { useState, createContext, useMemo } from 'react';
+import { BrowserRouter, Route, Routes} from 'react-router';
 import './App.css';
 import './theme/theme.css';
 import Header from './component/header/header';
 import TasksFilter from './component/TasksFilter/TasksFilter';
 import Tasks from './component/tasks/Tasks';
 import Footer from './component/footer/Footer';
+import ModalCreate from './component/modalCreate/ModalCreate'
+import TaskDetail from "./component/taskDetail/TaskDetail.jsx";
+
+
 
 export const TasksContext = createContext();
 
 function App() {
   const [tasks, setTasks] = useState([]);
   const [filterStatus, setFilterStatus] = useState("");
+  const [isModalOpen, setModalOpen] = useState(false);
 
-  const addTask = (taskText) => {
+  const openModal = () => setModalOpen(true);
+
+  const closeModal = () => setModalOpen(false);
+
+  const addTask = (name, description = "", priority = 2, deadline = null) => {
     const newTask = {
       id: Date.now(),
-      text: taskText,
-      done: false,
+      name,
+      description,
+      priority,
+      created: new Date().toISOString(),
+      deadline,
+      done: false
     };
     setTasks(prevTasks => [...prevTasks, newTask]);
   };
@@ -40,12 +54,23 @@ function App() {
   }, [tasks, filterStatus]);
 
   return (
-    <TasksContext.Provider value={{ tasks, filteredTasks, addTask, removeTask, doneTask, setFilterStatus }}>
-      <Header />
-      <TasksFilter />
-      <Tasks />
-      <Footer />
+    <BrowserRouter>
+    <TasksContext.Provider value={{ tasks, filteredTasks, isModalOpen,
+     addTask, removeTask, doneTask, setFilterStatus, openModal, closeModal}}>
+      <Routes>
+        <Route path="/" element={<>
+          <Header />
+          <TasksFilter />
+          <Tasks />
+          <ModalCreate />
+          <Footer /></>} />
+        <Route path="/:task" element={<>
+          <TaskDetail />
+          <Footer />
+        </>}/>
+      </Routes>
     </TasksContext.Provider>
+    </BrowserRouter>
   );
 }
 

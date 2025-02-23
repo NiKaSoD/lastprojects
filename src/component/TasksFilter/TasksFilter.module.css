@@ -54,17 +54,18 @@ input:hover + div.filter_value {
         border-radius: 4px;
     }
 
-    input[type="submit"] {
+    input {
         width: 100%;
         font-size: var(--font-size-text);
         border: none;
         border-radius: 4px;
         padding: 4px 8px;
-        cursor: pointer;
+        text-align: center;
+
         transition: background-color 0.3s ease;
     }
 
-    input[type="submit"]:hover {
+    input:hover {
         background-color: var(--bg-color-second);
     }
     
