@@ -20,8 +20,8 @@ const TaskDetail = () => {
                 <p><strong>Опис:</strong> {task.description}</p>
                 <p><strong>Пріоритет:</strong> {task.priority}</p>
                 <p><strong>Створено:</strong> {task.created}</p>
-                <p><strong>Дедлайн:</strong> {task.deadline || "Отсутствует"}</p>
-                <p><strong>Статус:</strong> {task.done ? "Выполнена" : "Не выполнена"}</p>
+                <p><strong>Дедлайн:</strong> {task.deadline || "Відсутній"}</p>
+                <p><strong>Статус:</strong> {task.done ? "Виконано" : "Не виконано"}</p>
             </div>
         </div>
 
